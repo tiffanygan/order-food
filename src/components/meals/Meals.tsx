@@ -1,6 +1,8 @@
 import React from "react";
 import MealModel from "../../models/MealModel";
 import classes from "./Meals.module.css";
+import MealItem from "./mealitem/MealItem";
+import Card from "../ui/card/Card";
 
 interface MealsProps {}
 
@@ -17,11 +19,13 @@ const Meals: React.FC<MealsProps> = (props) => {
 
   return (
     <div className={classes.meals}>
-      <ul>
-        {mealsArray.map((meal) => (
-          <li key={meal.id}>{meal.name}</li>
-        ))}
-      </ul>
+      <Card>
+        <ul>
+          {mealsArray.map((meal) => (
+            <MealItem meal={meal} key={meal.id} />
+          ))}
+        </ul>
+      </Card>
     </div>
   );
 };
