@@ -6,15 +6,21 @@ import Card from "../ui/card/Card";
 
 interface MealsProps {}
 
+export const sushi = new MealModel(
+  "m1",
+  "Sushi",
+  "Finest fish and veggies",
+  22.99
+);
+export const schnitzel = new MealModel(
+  "m2",
+  "Schnitzel",
+  "A German specialty!",
+  16.5
+);
+export const burger = new MealModel("m3", "Burger", `Daddy's favorite!`, 12.99);
+
 const Meals: React.FC<MealsProps> = (props) => {
-  const sushi = new MealModel("m1", "Sushi", "Finest fish and veggies", 22.99);
-  const schnitzel = new MealModel(
-    "m2",
-    "Schnitzel",
-    "A German specialty!",
-    16.5
-  );
-  const burger = new MealModel("m3", "Burger", `Daddy's favorite!`, 12.99);
   const mealsArray = [sushi, schnitzel, burger];
 
   return (
