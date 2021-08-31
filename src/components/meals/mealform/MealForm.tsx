@@ -1,23 +1,44 @@
-import React from "react";
+import React, { useContext, useRef } from "react";
 import classes from "./MealForm.module.css";
 import Input from "../../ui/input/Input";
+import CartContext from "../../../store/cart-context";
+import AddedFood from "../../../models/AddedFood";
+import MealModel from "../../../models/MealModel";
 
 interface MealFormProps {
-  mealId: string;
+  meal: MealModel;
 }
 
 const MealForm: React.FC<MealFormProps> = (props) => {
+  let context = useContext(CartContext);
+
+  const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    context.cart = [
+      ...context.cart,
+      new AddedFood(props.meal, +inputRef.current!.value),
+    ];
+    context.setAmountHandler(
+      context.cart
+        .map((item) => item.amount)
+        .reduce(
+          (previousValue, currentValue) => previousValue + currentValue,
+          0
+        )
+    );
+    inputRef.current!.value = "0";
+  };
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <form className={classes.form}>
       <Input
         label={"Amount"}
-        id={props.mealId}
+        id={props.meal.id}
         type={"number"}
-        min={0}
-        max={5}
-        step={1}
+        ref={inputRef}
       />
-      <button>+ Add</button>
+      <button onClick={clickHandler}>+ Add</button>
     </form>
   );
 };

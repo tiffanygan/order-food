@@ -5,6 +5,7 @@ import CheckoutItem from "../checkoutItem/CheckoutItem";
 
 interface CartProps {
   addedItems: AddedFood[];
+  onHideCheckout: (showCheckout: boolean) => void;
 }
 
 const Cart: React.FC<CartProps> = (props) => {
@@ -29,7 +30,7 @@ const Cart: React.FC<CartProps> = (props) => {
         </p>
       </span>
       <div className={classes.actions}>
-        <button>Close</button>
+        <button onClick={() => props.onHideCheckout(false)}>Close</button>
         <button className={classes.button}>Order</button>
       </div>
     </div>

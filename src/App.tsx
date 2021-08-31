@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "./components/navbar/Navbar";
-import Meals, { burger, sushi } from "./components/meals/Meals";
+import Meals from "./components/meals/Meals";
 import Modal from "./components/ui/modal/Modal";
-import AddedFood from "./models/AddedFood";
 import Cart from "./components/checkout/cart/Cart";
+import CartContext, { CartContextProvider } from "./store/cart-context";
 
 function App() {
-  const cart = [new AddedFood(sushi, 3), new AddedFood(burger, 2)];
+  const cartContext = useContext(CartContext);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   return (
-    <div>
-      <Navbar />
-      <Meals />
-      <Modal>
-        <Cart addedItems={cart} />
-      </Modal>
-    </div>
+    <CartContextProvider>
+      <div>
+        <Navbar onShowCheckout={setShowCheckout} />
+        <Meals />
+        {showCheckout && (
+          <Modal onHideCheckout={setShowCheckout}>
+            <Cart
+              addedItems={cartContext.cart}
+              onHideCheckout={setShowCheckout}
+            />
+          </Modal>
+        )}
+      </div>
+    </CartContextProvider>
   );
 }
 

@@ -12,7 +12,7 @@ const CheckoutItem: React.FC<CheckoutItemProps> = (props) => {
       <span>
         <h2>{props.item.food.name}</h2>
         <span className={classes.price}>
-          ${props.item.food.cost.toFixed(2)}
+          ${props.item.food.cost.toFixed(2)} &nbsp; &nbsp;
         </span>
         <span className={classes.amount}>x{props.item.amount}</span>
       </span>
