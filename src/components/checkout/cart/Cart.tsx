@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./Cart.module.css";
 import AddedFood from "../../../models/AddedFood";
 import CheckoutItem from "../checkoutItem/CheckoutItem";
+import CartContext from "../../../store/cart-context";
 
 interface CartProps {
   addedItems: AddedFood[];
@@ -9,6 +10,8 @@ interface CartProps {
 }
 
 const Cart: React.FC<CartProps> = (props) => {
+  const cartContext = useContext(CartContext);
+
   return (
     <div>
       <ul className={classes["cart-items"]}>
@@ -22,11 +25,12 @@ const Cart: React.FC<CartProps> = (props) => {
         <p>Total price:</p>
         <p>
           $
-          {props.addedItems.reduce(
-            (prevValue, currItem) =>
-              +(currItem.amount * currItem.food.cost).toFixed(2) + prevValue,
-            0
-          )}
+          {cartContext.cart
+            .map((meal) => meal.food.cost * meal.amount)
+            .reduce(
+              (previousValue, currentValue) => previousValue + currentValue,
+              0
+            )}
         </p>
       </span>
       <div className={classes.actions}>

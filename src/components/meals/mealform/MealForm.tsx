@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import classes from "./MealForm.module.css";
 import Input from "../../ui/input/Input";
 import CartContext from "../../../store/cart-context";
@@ -10,23 +10,23 @@ interface MealFormProps {
 }
 
 const MealForm: React.FC<MealFormProps> = (props) => {
-  let context = useContext(CartContext);
+  const [cartState, setCartState] = useState(new Array<AddedFood>());
+  const context = useContext(CartContext);
+
+  context.cart = cartState;
+  context.setAmountHandler(
+    cartState
+      .map((item) => item.amount)
+      .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
+  );
 
   const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    context.cart = [
-      ...context.cart,
+    setCartState((prevCart) => [
+      ...prevCart,
       new AddedFood(props.meal, +inputRef.current!.value),
-    ];
-    context.setAmountHandler(
-      context.cart
-        .map((item) => item.amount)
-        .reduce(
-          (previousValue, currentValue) => previousValue + currentValue,
-          0
-        )
-    );
-    inputRef.current!.value = "0";
+    ]);
+    inputRef.current!.value = "1";
   };
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -37,6 +37,7 @@ const MealForm: React.FC<MealFormProps> = (props) => {
         id={props.meal.id}
         type={"number"}
         ref={inputRef}
+        defaultValue={1}
       />
       <button onClick={clickHandler}>+ Add</button>
     </form>
