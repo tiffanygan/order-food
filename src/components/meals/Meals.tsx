@@ -22,6 +22,7 @@ export const burger = new MealModel("m3", "Burger", `Daddy's favorite!`, 12.99);
 
 const Meals: React.FC<MealsProps> = (props) => {
   const mealsArray = [sushi, schnitzel, burger];
+  console.log("in Meals");
 
   return (
     <div className={classes.meals}>

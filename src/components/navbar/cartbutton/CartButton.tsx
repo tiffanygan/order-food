@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import classes from "./CartButton.module.css";
 import CartIcon from "../../ui/carticon/CartIcon";
 import CartContext from "../../../store/cart-context";
@@ -9,8 +9,6 @@ interface ButtonProps {
 
 const CartButton: React.FC<ButtonProps> = (props) => {
   const cartContext = useContext(CartContext);
-  const [amountState, setAmountState] = useState<number>(0);
-  cartContext.setAmountHandler = setAmountState;
 
   return (
     <div className={classes.button} onClick={() => props.onClick(true)}>
@@ -18,7 +16,7 @@ const CartButton: React.FC<ButtonProps> = (props) => {
         <CartIcon />
       </span>
       Checkout
-      <span className={classes.badge}>{amountState}</span>
+      <span className={classes.badge}>{cartContext.cart.getTotalAmount()}</span>
     </div>
   );
 };

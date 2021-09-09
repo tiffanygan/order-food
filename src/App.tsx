@@ -17,7 +17,9 @@ function App() {
         {showCheckout && (
           <Modal onHideCheckout={setShowCheckout}>
             <Cart
-              addedItems={cartContext.cart}
+              addedItems={Array.from(cartContext.cart.cart.entries()).map(
+                (entry) => entry[1]
+              )}
               onHideCheckout={setShowCheckout}
             />
           </Modal>

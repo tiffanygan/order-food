@@ -8,6 +8,8 @@ interface MealItemProps {
 }
 
 const MealItem: React.FC<MealItemProps> = (props) => {
+  console.log("in MealItem");
+
   return (
     <li className={classes.meal}>
       <div>

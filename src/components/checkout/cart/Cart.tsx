@@ -23,15 +23,7 @@ const Cart: React.FC<CartProps> = (props) => {
       </ul>
       <span className={classes.total}>
         <p>Total price:</p>
-        <p>
-          $
-          {cartContext.cart
-            .map((meal) => meal.food.cost * meal.amount)
-            .reduce(
-              (previousValue, currentValue) => previousValue + currentValue,
-              0
-            )}
-        </p>
+        <p>${cartContext.cart.getTotalPrice().toFixed(2)}</p>
       </span>
       <div className={classes.actions}>
         <button onClick={() => props.onHideCheckout(false)}>Close</button>
